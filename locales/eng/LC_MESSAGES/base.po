@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2022-11-08 16:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: Introduction.py:36
+msgid "Αρχική σελίδα - περιγραφή εφαργμογής!"
+msgstr ""
+
+#: Introduction.py:38
+msgid "Η εφαργμοη αποτελειται λειτουργίες οι οποίες εκτελούνται από τις σελίδες που υπάρχουν στο αριστερα κάθετο μενού."
+msgstr ""
+
+#: Introduction.py:40
+msgid "Εισαγωγή Χρήστη: Μέσω αυτής της λειτουργίας είμαστε σε θέση να προσθέσουμε ένα νέο άτομο στην βάση δεδομενων με τους χρήστες, ωστε κατόπιν να προσθέσουμε τιμές εξετάσεων."
+msgstr ""
+
+#: Introduction.py:41
+msgid "Εισαγωγή Τιμών: Μέσω της επιλογής αυτής μπορούμε να επιλέξουμε το είδος της εξέτασης και κατόπιν να εισαγουμε τις τιμές των αποτελεσμάτων στην βάση δεδομένων."
+msgstr ""
+
+#: Introduction.py:43
+msgid "Αποτελέσματα Εξετάσεων: Από αυτήν την λειτουργία μπορούμε να ορίσουμε τον χρήστη που θέλουμε και να εμφανίσουμε κάθε αποτέλεσμα για κάθε είδος εξέτασης"
+msgstr ""
+
+#: Introduction.py:45
+msgid "Γραφήματα: Μέσω αυτής της λειτουργίας μπορούμε να επίλεξουμε χρήστη, κατόπιν ειδός εξέτασης, ημερομηνίες και συγκεκριμένη εξέταση ωστε να προβάλουμε το γραφήμα."
+msgstr ""
+
+#: pages/2_Insert_User.py:33
+msgid "Καλώς Ήρθες!"
+msgstr ""
+
+#: pages/2_Insert_User.py:34
+msgid "Εάν θέλεις να εισαγάγεις νέο χρήστη, παρακαλώ όπως συμπληρώσεις όλα τα πεδία της φόρμας και να πατήσεις 'Εισαγωγή'!"
+msgstr ""
+
+#: pages/2_Insert_User.py:39
+msgid "Εισαγωγή νέου χρήστη"
+msgstr ""
+
+#: pages/2_Insert_User.py:40
+msgid "Παρακαλώ όπως συμπληρώσετε τα παρακάτω πεδία για την εισαγωγή νέου χρήστη στην βάση δεδομένων."
+msgstr ""
+
+#: pages/2_Insert_User.py:44
+msgid "Όνομα"
+msgstr ""
+
+#: pages/2_Insert_User.py:45
+msgid "Ηλικία"
+msgstr ""
+
+#: pages/2_Insert_User.py:46
+msgid "Βάρος"
+msgstr ""
+
+#: pages/2_Insert_User.py:47
+msgid "Ύψος"
+msgstr ""
+
+#: pages/2_Insert_User.py:48
+msgid "Εισαγωγή"
+msgstr ""
+
+#: pages/2_Insert_User.py:59
+msgid "Ένας νέος χρήστης έχει εισαχθεί στην βάση δεδομένων."
+msgstr ""
+
+#: pages/2_Insert_User.py:62
+msgid "Κάποιο από τα πεδία δεν έχει συμπληρωθεί."
+msgstr ""
+
+#: pages/3_Insert_Medical_Data.py:51
+msgid "Εισαγωγή Τιμών Εξετάσεων"
+msgstr "Insert Medical Data!!!!"
+
+#: pages/3_Insert_Medical_Data.py:52
+msgid "Κατευθυνθείτε στο οριζόντιο μενού ώστε να εισαγάγετε νέες τιμές εξετάσεων."
+msgstr ""
+
+#: pages/3_Insert_Medical_Data.py:54
+msgid "Βιοχημικές"
+msgstr "Biochemical"
+
+#: pages/3_Insert_Medical_Data.py:54
+msgid "Γενική αίματος"
+msgstr "General Blood"
+
