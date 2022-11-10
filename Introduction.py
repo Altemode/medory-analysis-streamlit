@@ -5,10 +5,14 @@ _ = gettext.gettext
 
 from os import system, path
 
-import pandas as pd
-import numpy as np
-import altair as alt
+st.set_page_config(
+    page_title="Tefaa Metrics",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
+# Menu switcher for the languages:
 language = st.sidebar.selectbox('', ['eng', 'gr'])
 try:
   localizator = gettext.translation('base', localedir='locales', languages=[language])
@@ -17,8 +21,7 @@ try:
 except:
     pass
 
-
-
+# Buttons to generate automitacally commands for the translation:
 POT = st.sidebar.button(('POT generate'))
 MO = st.sidebar.button('MO generate')
 if POT:
@@ -28,5 +31,5 @@ if POT:
 if MO:
     system(f'cd {path.dirname(path.realpath(__file__))} && msgfmt -o locales/eng/LC_MESSAGES/base.mo locales/eng/LC_MESSAGES/base')
 
-
+# Lets start the app!:
 st.title(_("Αρχική σελίδα - περιγραφή εφαρμογής!"))
