@@ -1,8 +1,6 @@
 import pandas as pd 
 import streamlit as st
 from supabase import create_client, Client
-from PIL import Image
-from pathlib import Path
 import gettext
 _ = gettext.gettext
 
@@ -22,15 +20,6 @@ try:
   _ = localizator.gettext 
 except:
     pass
-
-current_dir = Path.cwd()
-css_file = current_dir / "styles" / "insertuser.css"
-
-
-# --- LOAD CSS, PDF & PROFIL PIC --- 
-with open(css_file) as f:
-    st.write("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
-
 
 #Make the connection with Supabase - Database:
 @st.experimental_singleton
