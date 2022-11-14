@@ -2,9 +2,9 @@ import pandas as pd
 import streamlit as st
 import gettext
 _ = gettext.gettext
-
 from os import system, path
 
+# Set config page
 st.set_page_config(
     page_title="Tefaa Metrics",
     page_icon="🧊",
@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 # Menu switcher for the languages:
-language = st.sidebar.selectbox('', ['eng', 'gr'])
+language = st.sidebar.selectbox(_('Επίλεξε Γλώσσα'), ['eng', 'gr'])
 try:
   localizator = gettext.translation('base', localedir='locales', languages=[language])
   localizator.install()
@@ -31,5 +31,19 @@ if POT:
 if MO:
     system(f'cd {path.dirname(path.realpath(__file__))} && msgfmt -o locales/eng/LC_MESSAGES/base.mo locales/eng/LC_MESSAGES/base')
 
-# Lets start the app!:
-st.title(_("Αρχική σελίδα - περιγραφή εφαρμογής!"))
+
+# some introduction...
+st.title(_("Αρχική σελίδα - Σύντομη περιγραφή!"))
+
+st.write(_("Η εφαρμογή αποτελειται από λειτουργίες οι οποίες εκτελούνται από τις σελίδες που υπάρχουν στο αριστερα κάθετο μενού."))
+
+st.write(_("**Insert User:** Ο χρήστης είναι σε θέση να προσθέσει νέο άτομο με τα στοιχεία του στην βάση δεδομένων."))
+
+st.write(_('**Insert Medical Data:** Ο χρήστης μπορεί να προσθέσει νέα αποτελέσματα εξετάσεων. Αφού επιλέξει για ποιο άτομο αφορούν, κατόπιν επιλέγει το είδος εξέτασης και συμπληρώνει τις τιμές στα ανάλογα πεδία.'))
+
+st.write(_('**Delete Medical Data:** Αυτή η λειτουργία είναι υπό κατασκευή.'))
+
+st.write(_('**Display Medical Data:** Ο χρήστης μπορεί να προβάλει αποτελέσματα εξετάσεων. Αφού επιλεξει για ποιο άτομο ενδιαφέρεται, έπειτα επιλέγει το είδος της εξέτασης και τις χρονολογίες που τον ενδιαφέρουν.'))
+
+st.write(_('**Charts:** Ο χρήστης μπορεί να προβάλει αποτελέσματα εξετάσεων σε γραφήματα. Πρώτα επιλέγει το άτομο που τον ενδιαφέρει, έπειτα το είδος της εξέτασης και τον δείκτη  για να προβαλει σε γράφημα.'))
+

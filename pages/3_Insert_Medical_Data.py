@@ -18,7 +18,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-language = st.sidebar.selectbox('', ['eng', 'gr'])
+# Menu switcher for the languages:
+language = st.sidebar.selectbox(_('Επίλεξε Γλώσσα'), ['eng', 'gr'])
 try:
   localizator = gettext.translation('base', localedir='locales', languages=[language])
   localizator.install()
@@ -49,7 +50,7 @@ df_medory_user_table_unique_values = df_medory_user_table.copy()
 st.title(_("Εισαγωγή Τιμών Εξετάσεων"))
 st.markdown(_("Κατευθυνθείτε στο οριζόντιο μενού ώστε να εισαγάγετε νέες τιμές εξετάσεων."))
 # 2. horizontal menu
-selected = option_menu(None, [_("Γενική αίματος"), _("Βιοχημικές"), _("Αιματολογικές"), _('Επίπεδα Φαρμάκων'), _('Έλεγχος Θυροειδούς'), _('Ορολογικές'), _('Βιταμίνες')], 
+selected = option_menu(None, [_("Γενική αίματος"), _("Βιοχημικές"), _("Αιματολογικές"), _('Επίπεδα Φαρμάκων'), _('Έλεγχος Θυρεοειδούς'), _('Ορολογικές'), _('Βιταμίνες')], 
     icons=['house', 'cloud-upload', "list-task", 'gear'], 
     menu_icon="cast", default_index=0, orientation="horizontal",
     styles={
@@ -95,10 +96,10 @@ if selected == _('Γενική αίματος'):
         st.sidebar.success(_('Μία νέα εισαγωγή με τυχαίες τιμές έχει εισαχθεί στην βάση δεδομένων.', icon="✅"))
 
     # Insert real data for medory_general_blood_tests_table
-    st.subheader(_("Γενική εξέταση αίματος"))
+    st.subheader(_("Γενική αίματος"))
     # Columns with fields to insert values:
     with st.form(_("Εισαγωγή τιμών εξέτασης αίματος"), clear_on_submit=False):
-        with st.expander("Ερυθρά Σειρά"):
+        with st.expander(_("Ερυθρά Σειρά")):
             col1,col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1],  gap="medium") 
             with col1: RBC = st.number_input(_("RBC Ερυθρά Αιμοσφαίρια"))
             with col2: HGB = st.number_input(_("HGB Αιμοσφαιρίνη"))
@@ -191,7 +192,7 @@ if selected == _('Γενική αίματος'):
 if selected == _('Βιοχημικές'):
 
     # Insert data for medory_general_blood_tests_table
-    st.subheader(_("Βιοχημικές Αίματος"))
+    st.subheader(_("Βιοχημικές"))
 
     with st.form(_("Εισαγωγή τιμών"), clear_on_submit=False):
         with st.expander(_("Τιμές Βιοχημικών Εξετάσεων")):
@@ -212,10 +213,10 @@ if selected == _('Βιοχημικές'):
             with col4: FER = st.number_input(_("Φερριτίνη"))
         
 
-        submitted = st.form_submit_button(_("Submit values"))
+        submitted = st.form_submit_button(_("Εισαγωγή Τιμών"))
 
         if submitted:
-            if assign_user != '-':
+            if assign_user != '':
                 def add_entries_to_medory_blood_biochemical_tests_table(supabase):
                         value = {'glu': GLU, 'ure': URE, 'cre': CRE, 'urca': URCA, 'hdl': HDL, 'tri': TRI,
                                 'sgot': SGOT, 'sgpt': SGPT, 'ygt': YGT, 'na': NA, 'k': K, 'ca': CA,
@@ -229,27 +230,12 @@ if selected == _('Βιοχημικές'):
                 st.warning(_("Παρακαλώ επιλέξτε χρήστη!"))
                 
 
-    def select_all_from_medory_blood_biochemical_tests_table():
-        query=con.table("medory_blood_biochemical_tests_table").select("*").execute()
-        return query
-    query = select_all_from_medory_blood_biochemical_tests_table()
-
-    df_medory_blood_biochemical_tests_table = pd.DataFrame(query.data)
-    df_medory_blood_biochemical_tests_table
-
-    # # Set the columns names:
-    # df_medory_blood_biochemical_tests_table.columns = ['ID', 'Created At', 'Σάκχαρο', 'Ουρία', 'Κρεατινίνη', 'Ουρικό οξύ', 'Χοληστερόλη ολική', 
-    #                     'Τριγλυκερίδια', 'Οξαλοξεική τρανσαμινάση (SGOT)', 'Πυροσταφυλική τρανσαμινάση (SGPT)', 'y-Γλουταμινική τρασφεράση', 'Νάτριο', 
-    #                     'Κάλιο', 'Ασβέστιο ολικό', 'Σίδηρος', 'Φερριτίνη']
-
-
-
 
 ###### ######### ########## INSERT DATA for medory_blood_biochemical_tests_table ########## ########## ##########
 
 if selected == _('Αιματολογικές'):
     # Insert data for medory_general_blood_tests_table
-    st.subheader(_("Αιματολογικές Εξετάσεις"))
+    st.subheader(_("Αιματολογικές"))
 
     with st.form(_("Εισαγωγή τιμών"), clear_on_submit=False):
         with st.expander(_("Τιμές Αιματολογικών Εξετάσεων")):
@@ -260,27 +246,19 @@ if selected == _('Αιματολογικές'):
         submitted = st.form_submit_button(_("Εισαγωγή Τιμών"))
 
         if submitted:
-            def add_entries_to_medory_hematological_tests_table(supabase):
-                    value = {'tke': TKE, 'b12': B12}
-                    data = supabase.table('medory_hematological_tests_table').insert(value).execute()
-            def main():
-                new_entry = add_entries_to_medory_hematological_tests_table(con)
-            main()
-            st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            if assign_user != '':
+                def add_entries_to_medory_hematological_tests_table(supabase):
+                        value = {'tke': TKE, 'b12': B12}
+                        data = supabase.table('medory_hematological_tests_table').insert(value).execute()
+                def main():
+                    new_entry = add_entries_to_medory_hematological_tests_table(con)
+                main()
+                st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            else:
+                st.warning(_("Παρακαλώ επιλέξτε χρήστη!"))
 
 
-    def select_all_from_medory_hematological_tests_table():
-        query=con.table("medory_hematological_tests_table").select("*").execute()
-        return query
-    query = select_all_from_medory_hematological_tests_table()
-
-    df_medory_hematological_tests_table = pd.DataFrame(query.data)
-    df_medory_hematological_tests_table.iloc[-1]
-
-    # # Set the columns names:
-    # df_medory_blood_biochemical_tests_table.columns = ['ID', 'Created At', 'Ταχύτητα καθίζησης ερυθρών', 'Βιταμίνη Β 12']
-
-
+###### ######### ########## INSERT DATA for medory_drug_levels_tests_table ########## ########## ##########
 
 if selected == _('Επίπεδα Φαρμάκων'):
     # Insert data for medory_drug_levels_tests_table
@@ -294,27 +272,23 @@ if selected == _('Επίπεδα Φαρμάκων'):
         submitted = st.form_submit_button(_("Εισαγωγή Τιμών"))
 
         if submitted:
-            def add_entries_to_medory_drug_levels_tests_table(supabase):
-                    value = {'ctni': CTNI}
-                    data = supabase.table('medory_drug_levels_tests_table').insert(value).execute()
-            def main():
-                new_entry = add_entries_to_medory_drug_levels_tests_table(con)
-            main()
-            st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            if assign_user != '':
+                def add_entries_to_medory_drug_levels_tests_table(supabase):
+                        value = {'ctni': CTNI}
+                        data = supabase.table('medory_drug_levels_tests_table').insert(value).execute()
+                def main():
+                    new_entry = add_entries_to_medory_drug_levels_tests_table(con)
+                main()
+                st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            else:
+                st.warning(_("Παρακαλώ επιλέξτε χρήστη!"))
 
+    
+###### ######### ########## INSERT DATA for medory_thyroid_check_tests_table ########## ########## ##########
 
-    def select_all_from_medory_drug_levels_tests_table():
-        query=con.table("medory_drug_levels_tests_table").select("*").execute()
-        return query
-    query = select_all_from_medory_drug_levels_tests_table()
-
-    df_medory_drug_levels_tests_table = pd.DataFrame(query.data)
-    df_medory_drug_levels_tests_table
-
-
-if selected == _('Έλεγχος Θυροειδούς'):
+if selected == _('Έλεγχος Θυρεοειδούς'):
     # Insert data for medory_thyroid_check_tests_table
-    st.subheader(_("Επίπεδα Φαρμάκων"))
+    st.subheader(_("Έλεγχος Θυρεοειδούς"))
 
     with st.form(_("Εισαγωγή τιμών"), clear_on_submit=False):
         with st.expander(_("Τιμές για έλεγχο Θυρεοειδούς")):
@@ -324,51 +298,69 @@ if selected == _('Έλεγχος Θυροειδούς'):
         submitted = st.form_submit_button(_("Εισαγωγή Τιμών"))
 
         if submitted:
-            def add_entries_to_medory_thyroid_check_tests_table(supabase):
-                    value = {'tsh': TSH}
-                    data = supabase.table('medory_thyroid_check_tests_table').insert(value).execute()
-            def main():
-                new_entry = add_entries_to_medory_thyroid_check_tests_table(con)
-            main()
-            st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            if assign_user != '':
+                def add_entries_to_medory_thyroid_check_tests_table(supabase):
+                        value = {'tsh': TSH}
+                        data = supabase.table('medory_thyroid_check_tests_table').insert(value).execute()
+                def main():
+                    new_entry = add_entries_to_medory_thyroid_check_tests_table(con)
+                main()
+                st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            else:
+                st.warning(_("Παρακαλώ επιλέξτε χρήστη!"))
+
+            
+###### ######### ########## INSERT DATA for medory_serological_tests_table ########## ########## ##########
+
+if selected == _('Ορολογικές'):
+    # Insert data for medory_serological_tests_table
+    st.subheader(_("Ορολογικές"))
+
+    with st.form(_("Εισαγωγή τιμών"), clear_on_submit=False):
+        with st.expander(_("Τιμές για Ορολογικές")):
+            col1,col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 1],  gap="medium") 
+            with col1: CRP = st.number_input(_("C-αντιδρώσα (ποσοτική) πρωτείνη (CRP)"))
+            
+        submitted = st.form_submit_button(_("Εισαγωγή Τιμών"))
+
+        if submitted:
+            if assign_user != '':
+                def add_entries_to_medory_serological_tests_table(supabase):
+                        value = {'crp': CRP}
+                        data = supabase.table('medory_serological_tests_table').insert(value).execute()
+                def main():
+                    new_entry = add_entries_to_medory_serological_tests_table(con)
+                main()
+                st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            else:
+                st.warning(_("Παρακαλώ επιλέξτε χρήστη!"))
 
 
-    def select_all_from_medory_thyroid_check_tests_table():
-        query=con.table("medory_thyroid_check_tests_table").select("*").execute()
-        return query
-    query = select_all_from_medory_thyroid_check_tests_table()
-
-    df_medory_thyroid_check_tests_table = pd.DataFrame(query.data)
-    st.write("Μόλις εισήγαγες τις παρακάτω τιμές.")
-    df_medory_thyroid_check_tests_table.iloc[-1]
+###### ######### ########## INSERT DATA for medory_vitamins_tests_table ########## ########## ##########
 
 
+if selected == _('Βιταμίνες'):
+    # Insert data for medory_vitamins_tests_table
+    st.subheader(_("Βιταμίνες"))
 
+    with st.form(_("Εισαγωγή τιμών"), clear_on_submit=False):
+        with st.expander(_("Τιμές για Βιταμίνες")):
+            col1,col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 1],  gap="medium") 
+            with col1: D3 = st.number_input(_("Βιταμίνη 25OH D3"))
+            
+        submitted = st.form_submit_button(_("Εισαγωγή Τιμών"))
 
-
-
-
-
-
-
-
-
-
-
-
-
-# # Initialize the container width session:
-# st.checkbox("Use container width", value=True, key="use_container_width")
-
-# # Display dataframe with users:
-# col1, col2 = st.columns(2)
-# with col1:
-#     st.header("Γενικη Εξεταση Αιματος")
-#     st.dataframe(df_medory_general_blood_tests_table.T, use_container_width=st.session_state.use_container_width)
-# with col2: 
-#     st.write()
+        if submitted:
+            if assign_user != '':
+                def add_entries_to_medory_vitamins_tests_table(supabase):
+                        value = {'25OH_D3': D3}
+                        data = supabase.table('medory_vitamins_tests_table').insert(value).execute()
+                def main():
+                    new_entry = add_entries_to_medory_vitamins_tests_table(con)
+                main()
+                st.success(_('Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων.'))
+            else:
+                st.warning(_("Παρακαλώ επιλέξτε χρήστη!"))
 
 
 
-# st.table(blood_table_df)
-# st.dataframe(blood_table_df.style.highlight_max(axis=0))

@@ -14,7 +14,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-language = st.sidebar.selectbox('', ['eng', 'gr'])
+# Menu switcher for the languages:
+language = st.sidebar.selectbox(_('Επίλεξε Γλώσσα'), ['eng', 'gr'])
 try:
   localizator = gettext.translation('base', localedir='locales', languages=[language])
   localizator.install()
@@ -64,7 +65,7 @@ if assign_user != '':
             check2 = st.checkbox(_("Βιοχημικές"))
             check3 = st.checkbox(_("Αιματολογικές Εξετάσεις"))
             check4 = st.checkbox(_("Επίπεδα Φαρμάκων"))
-            check5 = st.checkbox(_("Έλεγχος Θυροειδούς"))
+            check5 = st.checkbox(_("Έλεγχος Θυρεοειδούς"))
             check6 = st.checkbox(_("Ορολογικές"))
         with col2:
             check7 = st.checkbox("other1")
@@ -115,15 +116,19 @@ if assign_user != '':
                 # Create new Year column and set this as datetime column:
                 df_medory_general_blood_tests_table['Year'] = pd.to_datetime(df_medory_general_blood_tests_table['Created At'])
                 # Edit this Year column to keep only data of Year. We need this to select Year below:
-                df_medory_general_blood_tests_table['Year'] = df_medory_general_blood_tests_table['Year'].dt.strftime('%Y')
+                df_medory_general_blood_tests_table['Year'] = df_medory_general_blood_tests_table['Year'].dt.strftime('%Y-%m')
+                df_medory_general_blood_tests_table.sort_values(by='Year', ascending = False, inplace=True)
+
                 # Choose year to display results based on it:
-                choose_year = st.multiselect(label = _('Διάλεξε Έτη'), options = df_medory_general_blood_tests_table['Year'])
+                choose_year = st.multiselect(label = _('Διαλέξτε Ημερομηνίες'), options = df_medory_general_blood_tests_table['Year']) 
                 if choose_year:
                     # Display the dataframe:
                     st.subheader(_("Γενική εξέταση αίματος για {}").format(assign_user))
                     # Edit dataframe to keep data depending on above choose year:
                     df_medory_general_blood_tests_table = df_medory_general_blood_tests_table.loc[df_medory_general_blood_tests_table['Year'].isin(choose_year)]
                     # Display dataframe all columns, exclude specidic:
+                    
+
                     st.dataframe(df_medory_general_blood_tests_table.loc[:, ~df_medory_general_blood_tests_table.columns.isin(['Year', 'ID', 'Αφορά Χρήστη'])].T, height = 800, use_container_width=True)
             else:
                 st.write(_("Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"))
@@ -149,41 +154,52 @@ if assign_user != '':
                 df_medory_blood_biochemical_tests_table['Created At'] = pd.to_datetime(df_medory_blood_biochemical_tests_table['Created At'])
                 df_medory_blood_biochemical_tests_table['Created At'] = df_medory_blood_biochemical_tests_table['Created At'].dt.strftime('%Y-%m-%d')
                 df_medory_blood_biochemical_tests_table['Year'] = pd.to_datetime(df_medory_blood_biochemical_tests_table['Created At'])
-                df_medory_blood_biochemical_tests_table['Year'] = df_medory_blood_biochemical_tests_table['Year'].dt.strftime('%Y')
+                df_medory_blood_biochemical_tests_table['Year'] = df_medory_blood_biochemical_tests_table['Year'].dt.strftime('%Y-%m')
+                df_medory_blood_biochemical_tests_table.sort_values(by='Year', ascending = False, inplace=True)
 
-                choose_year = st.multiselect(label = _('Διάλεξε Έτη'), options = df_medory_blood_biochemical_tests_table['Year'])
+                choose_year = st.multiselect(label = _('Διάλεξε Ημερομηνίες'), options = df_medory_blood_biochemical_tests_table['Year'])
                 if choose_year:
 
                     # Display the dataframe:
                     st.subheader(_("Βιοχημικές Αίματος"))
                     df_medory_blood_biochemical_tests_table = df_medory_blood_biochemical_tests_table.loc[df_medory_blood_biochemical_tests_table['Year'].isin(choose_year)]
                     
-                    st.dataframe(df_medory_blood_biochemical_tests_table.loc[:, ~df_medory_blood_biochemical_tests_table.columns.isin(['Year', 'ID', 'Αφορά Χρήστη'])].T, height = 600, use_container_width=True)
+                    st.dataframe(df_medory_blood_biochemical_tests_table.loc[:, ~df_medory_blood_biochemical_tests_table.columns.isin(['Year', 'ID', 'Αφορά Χρήστη'])].T, height = 300, use_container_width=True)
             else:
                 st.write(_("Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"))
 
     with col3:
         # For hemtological tests:
         if check3:
-            # Get data from medory_hematological_tests:
-            def select_all_medory_hematological_tests_table():
+            # Get data from medory_hematological_tests_table:
+            def select_all_from_medory_hematological_tests_table():
                 query=con.table("medory_hematological_tests_table").select("*").eq("user_id", int(df_medory_user_table_unique_values.loc[row_index[0]]['id'])).execute()
                 return query
-            query = select_all_medory_hematological_tests_table()
+            query = select_all_from_medory_hematological_tests_table()
 
             # Create dataframe with this data:
             df_medory_hematological_tests_table = pd.DataFrame(query.data)
             
             # Set the columns names:
             if len(df_medory_hematological_tests_table) > 0:
-                df_medory_hematological_tests_table.columns = ['ID', 'Created At', _('Ταχύτητα καθίζησης ερυθρών'), _('Βιταμίνη Β 12'), _('Αφορά Χρήστη')]
+                df_medory_hematological_tests_table.columns = ['ID', 'Created At', _('Ταχύτητα καθίζησης ερυθρών'), _('Βιταμίνη Β12'), _('Αφορά Χρήστη')]
 
-            # Initialize the container width session:
-            #st.checkbox("Use container width", value=True, key="use_container_width3")
-            
-            # Display the dataframe:
-            st.subheader(_("Αιματολογικές Εξετάσεις"))
-            st.dataframe(df_medory_hematological_tests_table.T, use_container_width=True)
+                df_medory_hematological_tests_table['Created At'] = pd.to_datetime(df_medory_hematological_tests_table['Created At'])
+                df_medory_hematological_tests_table['Created At'] = df_medory_hematological_tests_table['Created At'].dt.strftime('%Y-%m-%d')
+                df_medory_hematological_tests_table['Year'] = pd.to_datetime(df_medory_hematological_tests_table['Created At'])
+                df_medory_hematological_tests_table['Year'] = df_medory_hematological_tests_table['Year'].dt.strftime('%Y-%m')
+                df_medory_hematological_tests_table.sort_values(by='Year', ascending = False, inplace=True)
+
+                choose_year = st.multiselect(label = _('Διάλεξε Ημερομηνίες'), options = df_medory_hematological_tests_table['Year'])
+                if choose_year:
+
+                    # Display the dataframe:
+                    st.subheader(_("Βιοχημικές Αίματος"))
+                    df_medory_hematological_tests_table = df_medory_hematological_tests_table.loc[df_medory_hematological_tests_table['Year'].isin(choose_year)]
+                    
+                    st.dataframe(df_medory_hematological_tests_table.loc[:, ~df_medory_hematological_tests_table.columns.isin(['Year', 'ID', 'Αφορά Χρήστη'])].T, height = 300, use_container_width=True)
+            else:
+                st.write(_("Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"))
 
     with col1:
         # For the level of drugs tests:
@@ -199,14 +215,24 @@ if assign_user != '':
             
             # Set the columns names:
             if len(df_medory_drug_levels_tests_table) > 0:
-                df_medory_drug_levels_tests_table.columns = ['ID', 'Created At', _('Τροπονίνη Ι (cTnI)'), _('Αφορά Χρήστη')]
+                df_medory_drug_levels_tests_table.columns = ['ID', 'Created At', _('Τροπονίνη - Ι'), _('Αφορά Χρήστη')]
 
-            # Initialize the container width session:
-            #st.checkbox("Use container width", value=True, key="use_container_width4")
-            
-            # Display the dataframe:
-            st.subheader(_("Επίπεδα Φαρμάκων"))
-            st.dataframe(df_medory_drug_levels_tests_table.T, use_container_width=True)
+                df_medory_drug_levels_tests_table['Created At'] = pd.to_datetime(df_medory_hematological_tests_table['Created At'])
+                df_medory_drug_levels_tests_table['Created At'] = df_medory_drug_levels_tests_table['Created At'].dt.strftime('%Y-%m-%d')
+                df_medory_drug_levels_tests_table['Year'] = pd.to_datetime(df_medory_drug_levels_tests_table['Created At'])
+                df_medory_drug_levels_tests_table['Year'] = df_medory_drug_levels_tests_table['Year'].dt.strftime('%Y-%m')
+                df_medory_drug_levels_tests_table.sort_values(by='Year', ascending = False, inplace=True)
+
+                choose_year = st.multiselect(label = _('Διάλεξε Ημερομηνίες'), options = df_medory_hematological_tests_table['Year'])
+                if choose_year:
+
+                    # Display the dataframe:
+                    st.subheader(_("Βιοχημικές Αίματος"))
+                    df_medory_drug_levels_tests_table = df_medory_drug_levels_tests_table.loc[df_medory_hematological_tests_table['Year'].isin(choose_year)]
+                    
+                    st.dataframe(df_medory_drug_levels_tests_table.loc[:, ~df_medory_drug_levels_tests_table.columns.isin(['Year', 'ID', 'Αφορά Χρήστη'])].T, height = 300, use_container_width=True)
+            else:
+                st.write(_("Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"))
 
     with col2:
         # For thyroid tests:
@@ -222,11 +248,24 @@ if assign_user != '':
             
             # Set the columns names:
             if len(df_medory_thyroid_check_tests_table) > 0:
-                df_medory_thyroid_check_tests_table.columns = ['ID', 'Created At', _('Θυρεοτρόπος ορμονη TSH'), _('Αφορά Χρήστη')]
+                df_medory_thyroid_check_tests_table = ['ID', 'Created At', _('Θυρεοτρόπος ορμόνη (TSH)'), _('Αφορά Χρήστη')]
 
-            # Display the dataframe:
-            st.subheader(_("Έλεγχος Θυρεοειδούς"))
-            st.dataframe(df_medory_thyroid_check_tests_table.T, use_container_width=True)
+                df_medory_thyroid_check_tests_table['Created At'] = pd.to_datetime(df_medory_hematological_tests_table['Created At'])
+                df_medory_thyroid_check_tests_table['Created At'] = df_medory_thyroid_check_tests_table['Created At'].dt.strftime('%Y-%m-%d')
+                df_medory_thyroid_check_tests_table['Year'] = pd.to_datetime(df_medory_thyroid_check_tests_table['Created At'])
+                df_medory_thyroid_check_tests_table['Year'] = df_medory_thyroid_check_tests_table['Year'].dt.strftime('%Y-%m')
+                df_medory_thyroid_check_tests_table.sort_values(by='Year', ascending = False, inplace=True)
+
+                choose_year = st.multiselect(label = _('Διάλεξε Ημερομηνίες'), options = df_medory_hematological_tests_table['Year'])
+                if choose_year:
+
+                    # Display the dataframe:
+                    st.subheader(_("Βιοχημικές Αίματος"))
+                    df_medory_thyroid_check_tests_table = df_medory_thyroid_check_tests_table.loc[df_medory_thyroid_check_tests_table['Year'].isin(choose_year)]
+                    
+                    st.dataframe(df_medory_thyroid_check_tests_table.loc[:, ~df_medory_thyroid_check_tests_table.columns.isin(['Year', 'ID', 'Αφορά Χρήστη'])].T, height = 300, use_container_width=True)
+            else:
+                st.write(_("Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"))
         
     with col3:
         

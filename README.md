@@ -1,10 +1,10 @@
 # Medory Analysis - Streamlit Application!
 
-This Streamlit app contains useful information and results from personal medical tests.
+This application is written in Python code and built using the Streamlit App Framework.
 
-Used Python code and other libraries like, pandas, numpy, graph libraries and streamlit!
+It is a multi-page application with the purpose of storing for each user medical data for each type of examination, making calculations, presenting the results in graphs, tables and much more.
 
-This application uses the supabase service as a database to store the data.
+Medory using PostgreSQL database to store the data through the open source Supabase platform.
 
 This application is multilingual. So far it has been translated into two languages, Greek and English. Depending on the need, it is easy to translate into further languages.
 
@@ -20,3 +20,12 @@ This application is multilingual. So far it has been translated into two languag
 
 - Display graphs per user for each type of medical examination, by specific medical indicator and selecting the chronological date.
 
+
+Packages used:
+– streamlit
+– streamlit_option_menu
+– numpy
+– pandas
+– plotly
+– supabase
+– pillow

@@ -1,6 +1,8 @@
 import pandas as pd 
 import streamlit as st
 from supabase import create_client, Client
+from PIL import Image
+from pathlib import Path
 import gettext
 _ = gettext.gettext
 
@@ -12,13 +14,22 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-language = st.sidebar.selectbox('', ['eng', 'gr'])
+# Menu switcher for the languages:
+language = st.sidebar.selectbox(_('Επίλεξε Γλώσσα'), ['eng', 'gr'])
 try:
   localizator = gettext.translation('base', localedir='locales', languages=[language])
   localizator.install()
   _ = localizator.gettext 
 except:
     pass
+
+current_dir = Path.cwd()
+css_file = current_dir / "styles" / "insertuser.css"
+
+
+# --- LOAD CSS, PDF & PROFIL PIC --- 
+with open(css_file) as f:
+    st.write("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 
 #Make the connection with Supabase - Database:
@@ -29,10 +40,6 @@ def init_connection():
     #client = create_client(url, key)
     return create_client(url, key)
 con = init_connection()
-
-st.sidebar.success(_("Καλώς Ήρθες!"))
-st.sidebar.success(_("Εάν θέλεις να εισαγάγεις νέο χρήστη, παρακαλώ όπως συμπληρώσεις όλα τα πεδία της φόρμας και να πατήσεις 'Εισαγωγή'!"))
-
 
 st.title(_("Εισαγωγή νέου χρήστη"))
 st.markdown(_("Παρακαλώ όπως συμπληρώσετε τα παρακάτω πεδία για την εισαγωγή νέου χρήστη στην βάση δεδομένων."))

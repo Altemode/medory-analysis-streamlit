@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-08 16:13+0200\n"
+"POT-Creation-Date: 2022-11-10 23:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,87 +15,372 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
+#: Introduction.py:16
+msgid "Επίλεξε Γλώσσα"
+msgstr "Choose Language!"
+
 #: Introduction.py:36
-msgid "Αρχική σελίδα - περιγραφή εφαρμογής!"
+msgid "Αρχική σελίδα - Σύντομη περιγραφή!"
 msgstr "Home - App Description!"
 
 #: Introduction.py:38
-msgid "Η εφαργμοη αποτελειται λειτουργίες οι οποίες εκτελούνται από τις σελίδες που υπάρχουν στο αριστερα κάθετο μενού."
-msgstr ""
+msgid "Η εφαρμογή αποτελειται από λειτουργίες οι οποίες εκτελούνται από τις σελίδες που υπάρχουν στο αριστερα κάθετο μενού."
+msgstr "The application consists of functions which are performed by the pages present in the left vertical menu"
 
 #: Introduction.py:40
-msgid "Εισαγωγή Χρήστη: Μέσω αυτής της λειτουργίας είμαστε σε θέση να προσθέσουμε ένα νέο άτομο στην βάση δεδομενων με τους χρήστες, ωστε κατόπιν να προσθέσουμε τιμές εξετάσεων."
-msgstr ""
+msgid "**Insert User:** Ο χρήστης είναι σε θέση να προσθέσει νέο άτομο με τα στοιχεία του στην βάση δεδομένων."
+msgstr "**Insert User:** User is able to add new person with their details in the database."
 
-#: Introduction.py:41
-msgid "Εισαγωγή Τιμών: Μέσω της επιλογής αυτής μπορούμε να επιλέξουμε το είδος της εξέτασης και κατόπιν να εισαγουμε τις τιμές των αποτελεσμάτων στην βάση δεδομένων."
-msgstr ""
+#: Introduction.py:42
+msgid "**Insert Medical Data:** Ο χρήστης μπορεί να προσθέσει νέα αποτελέσματα εξετάσεων. Αφού επιλέξει για ποιο άτομο αφορούν, κατόπιν επιλέγει το είδος εξέτασης και συμπληρώνει τις τιμές στα ανάλογα πεδία."
+msgstr "**Insert Medical Data:** User can add new exam results. After selecting the person he is interested in, he then selects the type of examination and fills in the values in the corresponding fields."
 
-#: Introduction.py:43
-msgid "Αποτελέσματα Εξετάσεων: Από αυτήν την λειτουργία μπορούμε να ορίσουμε τον χρήστη που θέλουμε και να εμφανίσουμε κάθε αποτέλεσμα για κάθε είδος εξέτασης"
-msgstr ""
+#: Introduction.py:44
+msgid "**Delete Medical Data:** Αυτή η λειτουργία είναι υπό κατασκευή."
+msgstr "**Delete Medical Data:** This feature is under construction."
 
-#: Introduction.py:45
-msgid "Γραφήματα: Μέσω αυτής της λειτουργίας μπορούμε να επίλεξουμε χρήστη, κατόπιν ειδός εξέτασης, ημερομηνίες και συγκεκριμένη εξέταση ωστε να προβάλουμε το γραφήμα."
-msgstr ""
+#: Introduction.py:46
+msgid "**Display Medical Data:** Ο χρήστης μπορεί να προβάλει αποτελέσματα εξετάσεων. Αφού επιλεξει για ποιο άτομο ενδιαφέρεται, έπειτα επιλέγει το είδος της εξέτασης και τις χρονολογίες που τον ενδιαφέρουν."
+msgstr "**Display Medical Data:** User can view exam results. After choosing which person he is interested in, he then selects the type of exam and the dates he is interested in."
+
+#: Introduction.py:48
+msgid "**Charts:** Ο χρήστης μπορεί να προβάλει αποτελέσματα εξετάσεων σε γραφήματα. Πρώτα επιλέγει το άτομο που τον ενδιαφέρει, έπειτα το είδος της εξέτασης και τον δείκτη  για να προβαλει σε γράφημα."
+msgstr "**Charts:** User can view test results in graphs. First he selects the person he is interested in, then the type of exam and the indicator to display on a chart."
+
+
+
+### ---- INSERT USER PAGE ###
+
 
 #: pages/2_Insert_User.py:33
-msgid "Καλώς Ήρθες!"
-msgstr ""
 
-#: pages/2_Insert_User.py:34
-msgid "Εάν θέλεις να εισαγάγεις νέο χρήστη, παρακαλώ όπως συμπληρώσεις όλα τα πεδία της φόρμας και να πατήσεις 'Εισαγωγή'!"
-msgstr ""
-
-#: pages/2_Insert_User.py:39
+#: pages/2_Insert_User.py:37
 msgid "Εισαγωγή νέου χρήστη"
-msgstr ""
+msgstr "Insert new user"
 
-#: pages/2_Insert_User.py:40
+#: pages/2_Insert_User.py:38
 msgid "Παρακαλώ όπως συμπληρώσετε τα παρακάτω πεδία για την εισαγωγή νέου χρήστη στην βάση δεδομένων."
-msgstr ""
+msgstr "Please fill in the following fields to add a new user to the database."
+
+#: pages/2_Insert_User.py:42
+msgid "Όνομα"
+msgstr "Fullname"
+
+#: pages/2_Insert_User.py:43
+msgid "Ηλικία"
+msgstr "Age"
 
 #: pages/2_Insert_User.py:44
-msgid "Όνομα"
-msgstr ""
+msgid "Βάρος"
+msgstr "Weight"
 
 #: pages/2_Insert_User.py:45
-msgid "Ηλικία"
-msgstr ""
+msgid "Ύψος"
+msgstr "Height"
 
 #: pages/2_Insert_User.py:46
-msgid "Βάρος"
-msgstr ""
-
-#: pages/2_Insert_User.py:47
-msgid "Ύψος"
-msgstr ""
-
-#: pages/2_Insert_User.py:48
 msgid "Εισαγωγή"
-msgstr ""
+msgstr "Insert"
 
-#: pages/2_Insert_User.py:59
+#: pages/2_Insert_User.py:57
 msgid "Ένας νέος χρήστης έχει εισαχθεί στην βάση δεδομένων."
-msgstr ""
+msgstr "A new user has been added to the database."
 
-#: pages/2_Insert_User.py:62
+#: pages/2_Insert_User.py:60
 msgid "Κάποιο από τα πεδία δεν έχει συμπληρωθεί."
-msgstr ""
+msgstr "One of the fields has not been filled in."
 
-#: pages/3_Insert_Medical_Data.py:51
+
+
+### ---- INSERT MEDICAL DATA ###
+
+
+
+#: pages/3_Insert_Medical_Data.py:49
 msgid "Εισαγωγή Τιμών Εξετάσεων"
-msgstr "Insert Medical Data!!!!"
+msgstr "Insert Medical Tests"
+
+#: pages/3_Insert_Medical_Data.py:50
+msgid "Κατευθυνθείτε στο οριζόντιο μενού ώστε να εισαγάγετε νέες τιμές εξετάσεων."
+msgstr "Head to the horizontal menu to enter new exam values."
 
 #: pages/3_Insert_Medical_Data.py:52
-msgid "Κατευθυνθείτε στο οριζόντιο μενού ώστε να εισαγάγετε νέες τιμές εξετάσεων."
-msgstr ""
+msgid "Βιταμίνες"
+msgstr "Vitamins"
 
-#: pages/3_Insert_Medical_Data.py:54
+#: pages/3_Insert_Medical_Data.py:52
+msgid "Ορολογικές"
+msgstr "Serological"
+
+#: pages/3_Insert_Medical_Data.py:52 pages/3_Insert_Medical_Data.py:68
+msgid "Γενική αίματος"
+msgstr "General blood"
+
+#: pages/3_Insert_Medical_Data.py:52 pages/3_Insert_Medical_Data.py:191
 msgid "Βιοχημικές"
 msgstr "Biochemical"
 
-#: pages/3_Insert_Medical_Data.py:54
-msgid "Γενική αίματος"
-msgstr "General Blood"
+#: pages/3_Insert_Medical_Data.py:52 pages/3_Insert_Medical_Data.py:250
+msgid "Αιματολογικές"
+msgstr "Hematologic"
+
+#: pages/3_Insert_Medical_Data.py:52 pages/3_Insert_Medical_Data.py:286
+msgid "Επίπεδα Φαρμάκων"
+msgstr "Drug Levels"
+
+#: pages/3_Insert_Medical_Data.py:52 pages/3_Insert_Medical_Data.py:315
+msgid "Έλεγχος Θυρεοειδούς"
+msgstr "Thyroid Checkup"
+
+#: pages/3_Insert_Medical_Data.py:64
+msgid "Αναφορά Χρήστη"
+msgstr "Choose User"
+
+#: pages/3_Insert_Medical_Data.py:70
+msgid "Εισαγωγή τυχαίων δεδομένων"
+msgstr "Enter random data"
+
+#: pages/3_Insert_Medical_Data.py:98
+msgid "Γενική εξέταση αίματος"
+msgstr "General blood test"
+
+#: pages/3_Insert_Medical_Data.py:100
+msgid "Εισαγωγή τιμών εξέτασης αίματος"
+msgstr "Insert blood test values"
+
+#: pages/3_Insert_Medical_Data.py:103 pages/3_Insert_Medical_Data.py:162
+msgid "RBC Ερυθρά Αιμοσφαίρια"
+msgstr "RBC Red Blood Cells"
+
+#: pages/3_Insert_Medical_Data.py:104 pages/3_Insert_Medical_Data.py:162
+msgid "HGB Αιμοσφαιρίνη"
+msgstr "HGB Hemoglobin"
+
+#: pages/3_Insert_Medical_Data.py:105 pages/3_Insert_Medical_Data.py:162
+msgid "HCT Αιματοκρίτης"
+msgstr "HCT Hematocrit"
+
+#: pages/3_Insert_Medical_Data.py:106 pages/3_Insert_Medical_Data.py:162
+msgid "MCV Μέσος Όγκος Ερυθρών"
+msgstr "MCV Mean Erythrocyte Volume"
+
+#: pages/3_Insert_Medical_Data.py:107 pages/3_Insert_Medical_Data.py:162
+msgid "MCH Μέση περιεκτικότης"
+msgstr "MCH Average content"
+
+#: pages/3_Insert_Medical_Data.py:108 pages/3_Insert_Medical_Data.py:163
+msgid "MCHC Μέση Συγκέντρωση"
+msgstr "MCHC Mean Concentration"
+
+#: pages/3_Insert_Medical_Data.py:109 pages/3_Insert_Medical_Data.py:163
+msgid "RDW Εύρος Κατανομής"
+msgstr "RDW Distribution Range"
+
+#: pages/3_Insert_Medical_Data.py:111
+msgid "Ερυθρά Σειρά"
+msgstr "Red Series"
+
+#: pages/3_Insert_Medical_Data.py:111
+msgid "Λευκά Σειρά"
+msgstr "White Series"
+
+#: pages/3_Insert_Medical_Data.py:113 pages/3_Insert_Medical_Data.py:163
+msgid "WBC Λευκά Αιμοσφαίρια"
+msgstr "WBC White Blood Cells"
+
+#: pages/3_Insert_Medical_Data.py:114 pages/3_Insert_Medical_Data.py:163
+msgid "NEU Ουδετερόφιλα %"
+msgstr "NEU Neutrophils %"
+
+#: pages/3_Insert_Medical_Data.py:115 pages/3_Insert_Medical_Data.py:163
+msgid "LYM Λεμφοκύτταρα %"
+msgstr "LYM Lymphocytes %"
+
+#: pages/3_Insert_Medical_Data.py:116
+msgid "MON Μεγάλα Μονοπύρηνα %"
+msgstr "MON Large Mononuclear %"
+
+#: pages/3_Insert_Medical_Data.py:117 pages/3_Insert_Medical_Data.py:164
+msgid "EOS Ηωσινόφιλα %"
+msgstr "EOS Eosinophils %"
+
+#: pages/3_Insert_Medical_Data.py:118 pages/3_Insert_Medical_Data.py:164
+msgid "BASO Βασεόφιλα %"
+msgstr "BASO Basophils %"
+
+#: pages/3_Insert_Medical_Data.py:120 pages/3_Insert_Medical_Data.py:164
+msgid "NEU Ουδετερόφιλα #"
+msgstr "NEU Neutrophils #"
+
+#: pages/3_Insert_Medical_Data.py:121 pages/3_Insert_Medical_Data.py:164
+msgid "LYM Λεμφοκύτταρα #"
+msgstr "LYM Lymphocytes #"
+
+#: pages/3_Insert_Medical_Data.py:122 pages/3_Insert_Medical_Data.py:164
+msgid "MON Μεγάλα μονοπύρηνα #"
+msgstr "MON Large monocores #"
+
+#: pages/3_Insert_Medical_Data.py:123 pages/3_Insert_Medical_Data.py:164
+msgid "EOS Ηωσινόφιλα #"
+msgstr "EOS Eosinophils #"
+
+#: pages/3_Insert_Medical_Data.py:124 pages/3_Insert_Medical_Data.py:164
+msgid "BASO Βασεόφιλα #"
+msgstr "BASO Basophils #"
+
+#: pages/3_Insert_Medical_Data.py:126 pages/3_Insert_Medical_Data.py:165
+msgid "PLT Αιμοπετάλια"
+msgstr "PLT Platelets"
+
+#: pages/3_Insert_Medical_Data.py:127 pages/3_Insert_Medical_Data.py:165
+msgid "PCT Αιμοπεταλιοκρίτης"
+msgstr "PCT Hematocrit"
+
+#: pages/3_Insert_Medical_Data.py:128 pages/3_Insert_Medical_Data.py:165
+msgid "MPV Μέσος όγκος αιμοπεταλίων"
+msgstr "MPV Mean platelet volume"
+
+#: pages/3_Insert_Medical_Data.py:129 pages/3_Insert_Medical_Data.py:165
+msgid "PDW Εύρος Κατανομής-PLT"
+msgstr "PDW Distribution Range-PLT"
+
+#: pages/3_Insert_Medical_Data.py:131 pages/3_Insert_Medical_Data.py:260
+#: pages/3_Insert_Medical_Data.py:294 pages/3_Insert_Medical_Data.py:324
+msgid "Εισαγωγή Τιμών"
+msgstr "Insert Data"
+
+#: pages/3_Insert_Medical_Data.py:145 pages/3_Insert_Medical_Data.py:227
+#: pages/3_Insert_Medical_Data.py:269 pages/3_Insert_Medical_Data.py:303
+#: pages/3_Insert_Medical_Data.py:333
+msgid "Μία καινούρια εγγραφή ιατρικών δεδομένων έχει εισαχθεί στην βάση δεδομένων."
+msgstr "A new medical data record has been entered into the database."
+
+#: pages/3_Insert_Medical_Data.py:148 pages/3_Insert_Medical_Data.py:229
+msgid "Παρακαλώ επιλέξτε χρήστη!"
+msgstr "Please select a user!"
+
+#: pages/3_Insert_Medical_Data.py:165
+msgid "Αφορά Χρήστη"
+msgstr "Choose User"
+
+#: pages/3_Insert_Medical_Data.py:175
+msgid "Διαλέξτε Ημερομηνίες"
+msgstr "Choose Dates"
+
+#: pages/3_Insert_Medical_Data.py:179
+msgid "Γενική εξέταση αίματος για {}"
+msgstr "General blood test for {}"
+
+#: pages/3_Insert_Medical_Data.py:185
+msgid "Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"
+msgstr "There are no entries for these criteria"
+
+#: pages/3_Insert_Medical_Data.py:194
+msgid "Βιοχημικές Αίματος"
+msgstr "Blood Biochemicals"
+
+#: pages/3_Insert_Medical_Data.py:196 pages/3_Insert_Medical_Data.py:254
+#: pages/3_Insert_Medical_Data.py:289 pages/3_Insert_Medical_Data.py:319
+msgid "Εισαγωγή τιμών"
+msgstr "Insert values"
+
+#: pages/3_Insert_Medical_Data.py:197
+msgid "Τιμές Βιοχημικών Εξετάσεων"
+msgstr "Values of Biochemistry Exams"
+
+#: pages/3_Insert_Medical_Data.py:199
+msgid "Σάκχαρο"
+msgstr "Sugar"
+
+#: pages/3_Insert_Medical_Data.py:200
+msgid "Ουρία"
+msgstr "Urea"
+
+#: pages/3_Insert_Medical_Data.py:201
+msgid "Κρεατινίνη"
+msgstr "Creatinine"
+
+#: pages/3_Insert_Medical_Data.py:202
+msgid "Ουρικό οξύ"
+msgstr "Uric Acid"
+
+#: pages/3_Insert_Medical_Data.py:203
+msgid "Χοληστερόλη ολική"
+msgstr "Total cholesterol"
+
+#: pages/3_Insert_Medical_Data.py:204
+msgid "Τριγλυκερίδια"
+msgstr "Triglycerides"
+
+#: pages/3_Insert_Medical_Data.py:205
+msgid "Οξαλοξεική τρανσαμινάση (SGOT)"
+msgstr "Oxaloacetate transaminase (SGOT)"
+
+#: pages/3_Insert_Medical_Data.py:206
+msgid "Πυροσταφυλική τρανσαμινάση (SGPT)"
+msgstr "Pyruvate transaminase (SGPT)"
+
+#: pages/3_Insert_Medical_Data.py:207
+msgid "y-Γλουταμινική τρασφεράση"
+msgstr "y-Glutamate transferase"
+
+#: pages/3_Insert_Medical_Data.py:208
+msgid "Νάτριο"
+msgstr "Sodium"
+
+#: pages/3_Insert_Medical_Data.py:209
+msgid "Potassium"
+msgstr ""
+
+#: pages/3_Insert_Medical_Data.py:210
+msgid "Ασβέστιο ολικό"
+msgstr "Total calcium"
+
+#: pages/3_Insert_Medical_Data.py:211
+msgid "Σίδηρος"
+msgstr "Iron"
+
+#: pages/3_Insert_Medical_Data.py:212
+msgid "Φερριτίνη"
+msgstr "Ferritin"
+
+#: pages/3_Insert_Medical_Data.py:215
+msgid "Εισαγωγή Τιμών"
+msgstr "Insert Values"
+
+#: pages/3_Insert_Medical_Data.py:252
+msgid "Αιματολογικές Εξετάσεις"
+msgstr "Blood tests"
+
+#: pages/3_Insert_Medical_Data.py:255
+msgid "Τιμές Αιματολογικών Εξετάσεων"
+msgstr "Values of Hematology Tests"
+
+#: pages/3_Insert_Medical_Data.py:257
+msgid "Ταχύτητα καθίζησης ερυθρών"
+msgstr "Red sedimentation rate"
+
+#: pages/3_Insert_Medical_Data.py:258
+msgid "Βιταμίνη Β 12"
+msgstr "Vitamin B 12"
+
+#: pages/3_Insert_Medical_Data.py:290
+msgid "Τιμές για Επίπεδα Φαρμάκων"
+msgstr "Values for Drug Levels"
+
+#: pages/3_Insert_Medical_Data.py:292
+msgid "Τροπονίνη Ι (cTnI)"
+msgstr "Troponin I (cTnI)"
+
+#: pages/3_Insert_Medical_Data.py:320
+msgid "Τιμές για έλεγχο Θυρεοειδούς"
+msgstr "Values for Thyroid test"
+
+#: pages/3_Insert_Medical_Data.py:322
+msgid "Θυρεοτρόπος ορμονη TSH"
+msgstr "Thyroid stimulating hormone TSH"
+
+msgid "Επίλεξε Συγκεκριμενη τιμή"
+msgstr "Choose specific indicator"
+
 
