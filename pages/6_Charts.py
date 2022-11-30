@@ -1,10 +1,13 @@
 import pandas as pd 
+import numpy as np
 import streamlit as st
 from supabase import create_client, Client
 from streamlit_option_menu import option_menu
 import plotly.express as px
 import plotly.graph_objects as go
 import gettext
+import functools as ft
+from functools import reduce
 _ = gettext.gettext
 
 st.set_page_config(
@@ -33,15 +36,67 @@ def init_connection():
     return create_client(url, key)
 con = init_connection()
 
-st.markdown("<h1 style='text-align: left; color: black; font-weight:900'>Στατιστικά Τιμών Εξετάσεων</h1>", unsafe_allow_html=True)
+dict_columns_names = {
+            # for df_medory_general_blood_tests_table
+            'rbc' : 'RBC Ερυθρά Αιμοσφαίρια',
+            'hgb' : 'HGB Αιμοσφαιρίνη',
+            'hct' : 'HCT Αιματοκρίτης',
+            'mcv' : 'MCV Μέσος Όγκος Ερυθρών',
+            'mch' : 'MCH Μέση περιεκτικότης',
+            'mchc': 'MCHC Μέση Συγκέντρωση',
+            'rdw' : 'RDW Εύρος Κατανομής',
+            'wbc' : 'WBC Λευκά Αιμοσφαίρια',
+            'neu1' : 'NEU Ουδετερόφιλα %',
+            'lym1' : 'LYM Λεμφοκύτταρα %',
+            'mon1' : 'MON Μεγάλα μονοπύρηνα %',
+            'eos1' : 'EOS Ηωσινόφιλα %',
+            'baso1': 'BASO Βασεόφιλα %',
+            'neu2' : 'NEU Ουδετερόφιλα #',
+            'lym2' : 'LYM Λεμφοκύτταρα #',
+            'mon2' : 'MON Μεγάλα μονοπύρηνα #',
+            'eos2' : 'EOS Ηωσινόφιλα #',
+            'baso2': 'BASO Βασεόφιλα #',
+            'plt' : 'PLT Αιμοπετάλια',
+            'pct' : 'PCT Αιμοπεταλιοκρίτης',
+            'mpv' : 'MPV Μέσος όγκος αιμοπεταλίων',
+            'pdw' : 'PDW Εύρος Κατανομής-PLT',
+
+            # for df_medory_blood_biochemical_tests_table
+            'glu' : 'Σάκχαρο',
+            'ure' : 'Ουρία',
+            'cre' : 'Κρεατινίνη',
+            'urca' : 'Ουρικό οξύ',
+            'hdl' : 'Χοληστερόλη ολική',
+            'tri' : 'Τριγλυκερίδια',
+            'sgot' : 'Οξαλοξεική τρανσαμινάση (SGOT)',
+            'sgpt' : 'Πυροσταφυλική τρανσαμινάση (SGPT)',
+            'ygt' : 'y-Γλουταμινική τρασφεράση',
+            'na' : 'Νάτριο',
+            'k' : 'Κάλιο',
+            'ca' : 'Ασβέστιο ολικό',
+            'fe' : 'Σίδηρος',
+            'fer' : 'Φερριτίνη',
+
+            # for medory_hematological_tests_table
+            'tke' : 'Ταχύτητα καθίζησης ερυθρών',
+            'b12' : 'Βιταμίνη Β12',
+
+            # for medory_drug_levels_tests_table
+            'ctni' : 'Τροπονίνη I (cTnI)'
+
+
+        }
+
+
+st.markdown("Στατιστικά Τιμών Εξετάσεων")
+
+#--------------------------------Fetch all users from database and assign user--------------------------------#
 
 def select_all_from_medory_user_table():
     query=con.table("medory_user_table").select("*").execute()
     return query
 query = select_all_from_medory_user_table()
-
 df_medory_user_table = pd.DataFrame(query.data)
-
 df_medory_user_table_unique_values = df_medory_user_table.copy()
 
 assign_user = st.selectbox("Αναφορά Χρήστη  " , (df_medory_user_table_unique_values['fullname']))
@@ -55,7 +110,132 @@ if assign_user != '':
     st.sidebar.write("Ύψος:", df_medory_user_table_unique_values.loc[row_index[0]]['height'])
     st.sidebar.write("BMI:", round(df_medory_user_table_unique_values.loc[row_index[0]]['bmi'],3))
 
-    st.markdown("<h1 style='text-align: left; color: black; font-weight:900'>Real-Time / Live Data Science Dashboard</h1>", unsafe_allow_html=True)
+#-----------------------------------End of Fetch all users from database -------------------------------------#
+
+    
+    #---------- FETCH DATA FROM ALL TABLES ---------------#
+    dfs=[]
+    #### 1 Fetch all data from medory_general_blood_tests_table:
+    def select_all_from_medory_general_blood_tests_table():
+        query=con.table("medory_general_blood_tests_table").select("*").eq("user_id", int(df_medory_user_table_unique_values.loc[row_index[0]]['id'])).execute()
+        return query
+    query = select_all_from_medory_general_blood_tests_table()
+    df_medory_general_blood_tests_table = pd.DataFrame(query.data)
+    # Exclude some unnecessary columns:
+    df_medory_general_blood_tests_table = df_medory_general_blood_tests_table.loc[:, ~df_medory_general_blood_tests_table.columns.isin(['id', 'user_id'])]
+    if len(df_medory_general_blood_tests_table) > 0:
+        dfs.append(df_medory_general_blood_tests_table)
+
+    #### 2 Fetch all data from medory_blood_biochemical_tests_table:
+    def select_all_from_medory_blood_biochemical_tests_table():
+        query=con.table("medory_blood_biochemical_tests_table").select("*").eq("user_id", int(df_medory_user_table_unique_values.loc[row_index[0]]['id'])).execute()
+        return query
+    query = select_all_from_medory_blood_biochemical_tests_table()
+    df_medory_blood_biochemical_tests_table = pd.DataFrame(query.data)
+    # Exclude some unnecessary columns:
+    df_medory_blood_biochemical_tests_table = df_medory_blood_biochemical_tests_table.loc[:, ~df_medory_blood_biochemical_tests_table.columns.isin(['id', 'user_id'])]
+    if len(df_medory_blood_biochemical_tests_table) > 0:
+        dfs.append(df_medory_blood_biochemical_tests_table)
+
+    #### 3 Fetch all data from medory_hematological_tests_table:
+    def select_all_from_medory_hematological_tests_table():
+        query=con.table("medory_hematological_tests_table").select("*").eq("user_id", int(df_medory_user_table_unique_values.loc[row_index[0]]['id'])).execute()
+        return query
+    query = select_all_from_medory_hematological_tests_table()
+    df_medory_hematological_tests_table = pd.DataFrame(query.data)
+    # Exclude some unnecessary columns:
+    df_medory_hematological_tests_table = df_medory_hematological_tests_table.loc[:, ~df_medory_hematological_tests_table.columns.isin(['id', 'user_id'])]
+    if len(df_medory_hematological_tests_table) > 0:
+        dfs.append(df_medory_hematological_tests_table)
+
+    #### 4 Fetch all data from medory_drug_levels_tests_table:
+    def select_all_from_medory_drug_levels_tests_table():
+        query=con.table("medory_drug_levels_tests_table").select("*").eq("user_id", int(df_medory_user_table_unique_values.loc[row_index[0]]['id'])).execute()
+        return query
+    query = select_all_from_medory_drug_levels_tests_table()
+    df_medory_drug_levels_tests_table = pd.DataFrame(query.data)
+    # Exclude some unnecessary columns:
+    df_medory_drug_levels_tests_table = df_medory_drug_levels_tests_table.loc[:, ~df_medory_drug_levels_tests_table.columns.isin(['id', 'user_id'])]  
+    if len(df_medory_drug_levels_tests_table) > 0:
+        dfs.append(df_medory_drug_levels_tests_table)
+    
+    #---------- End of FETCH DATA FROM ALL TABLES ---------------#
+
+
+    #-----------Merge & processing this Dataframe -------------#
+
+    if len(dfs) > 0:
+
+        #merge all DataFrames into one
+        df_merged = reduce(lambda  left, right: pd.merge(left, right, on=['created_at'], how='outer'), dfs)
+
+        # Second i create a new column with Date name, that includes Year, Month, Day from Column Created At:
+        df_merged['created_at'] = pd.to_datetime(df_merged['created_at'])
+        df_merged['Date'] = df_merged['created_at'].dt.strftime('%Y-%m-%d')
+        df_merged["-"] = np.nan
+        # Third exclude created_at column:
+        df_merged = df_merged.loc[:, ~df_merged.columns.isin(['created_at'])]
+
+        # Set Columns name for df_merged:
+        for col in df_merged.columns:
+            for key in dict_columns_names:
+                if key == col:
+                    df_merged.rename(columns = {col : dict_columns_names[key]}, inplace = True)     
+    
+        # shift column '-' to first position
+        first_column = df_merged.pop('-')
+        # insert column using insert(position,column_name, first_column) function
+        df_merged.insert(0, '-', first_column)
+
+        # Set index
+        df_merged.set_index(('Date'), inplace=True)
+        # Set index name
+        df_merged.index.name='Dates'
+        # Fourth sorting datatable:
+        df_merged.sort_index( ascending = False, inplace=True)
+    
+        #-----------End of Merge & processing this Dataframe -------------#
+
+
+        #-----------Create Chart depending on selected indicator and dates -------------#
+        select_specific_indicator = st.selectbox(_(''), options = df_merged.columns )
+
+        # Drop rows with <NA> values:
+        df_merged.dropna(subset=[select_specific_indicator], inplace=True)
+
+        if select_specific_indicator != '-':
+            choose_date = st.multiselect(label = _('Διάλεξε Ημερομηνίες'), options = df_merged.index)
+            if choose_date:
+                # Display the dataframe:
+                df_merged = df_merged.loc[df_merged.index.isin(choose_date)]
+                
+                
+                #Create the chart;
+                fig3 = px.bar(data_frame=df_merged, x=choose_date,  y=select_specific_indicator)
+                fig3.update_layout(
+                    margin=dict(l=0, r=20, t=0, b=60),
+                )
+                st.write("---")
+                col1,col2 = st.columns([2,1], gap='medium')
+                with col1:
+                    st.write(_("**Γράφημα για {}**").format(select_specific_indicator))
+                    st.plotly_chart(fig3, use_container_width=True)
+                with col2:
+                    st.write(_("**Τιμές για {}**").format(select_specific_indicator))
+                    st.dataframe(df_merged[select_specific_indicator], use_container_width=True)
+
+        else:
+            st.write(_("Δεν υπάρχουν εγγραφές για αυτά τα κριτήρια"))
+
+        #-----------End of Create Chart depending on selected indicator and dates -------------#
+
+
+    else: 
+        st.write(_("**Δεν υπάρχουν εγγραφές για το άτομο {}**".format(assign_user)))
+
+    
+
+    st.write('---')
 
     select_tests = st.selectbox(_("Επίλεξε Εξέταση"), options = ['', _("Γενική αίματος"), _("Βιοχημικές"), _("Αιματολογικές"), _('Επίπεδα Φαρμάκων'), _('Έλεγχος Θυρεοειδούς'), _('Ορολογικές'), _('Βιταμίνες')])
 
