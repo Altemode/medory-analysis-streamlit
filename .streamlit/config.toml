@@ -1,6 +1,7 @@
 [server]
 runOnSave = true
 enableXsrfProtection = false
+enableCORS = false
 
 [theme]
 base="dark"
