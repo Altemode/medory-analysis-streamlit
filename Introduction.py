@@ -59,15 +59,17 @@ st.write("H")
 response3 = requests.get("https://in.gr")
 st.write("in",response3)
 
-response1 = requests.get("https://sportsmetrics.geth.gr")
-st.write("sportsmetrics",response1)
-
-response2 = requests.get("https://geth.gr")
-st.write("geth",response2)
 
 response3 = requests.get("https://paramithenios.gr")
 st.write("plottwist",response3)
 
+
+
+# response1 = requests.get("https://sportsmetrics.geth.gr")
+# st.write("sportsmetrics",response1)
+
+response2 = requests.get("https://geth.gr")
+st.write("geth",response2)
 
 
 
