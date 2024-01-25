@@ -55,6 +55,10 @@ st.write(_('**Charts:** Ο χρήστης μπορεί να προβάλει α�
 
 st.write("H")
 
+
+response3 = requests.get("https://in.gr")
+st.write("in",response3)
+
 response1 = requests.get("https://sportsmetrics.geth.gr")
 st.write("sportsmetrics",response1)
 
@@ -64,8 +68,7 @@ st.write("geth",response2)
 response3 = requests.get("https://paramithenios.gr")
 st.write("plottwist",response3)
 
-response3 = requests.get("https://artdigital.gr")
-st.write("art",response3)
+
 
 
 
