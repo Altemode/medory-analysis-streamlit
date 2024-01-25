@@ -65,9 +65,6 @@ st.write("plottwist",response3)
 
 
 
-# response1 = requests.get("https://sportsmetrics.geth.gr")
-# st.write("sportsmetrics",response1)
-
 response2 = requests.get("https://geth.gr")
 st.write("geth",response2)
 
