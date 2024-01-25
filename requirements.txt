@@ -5,3 +5,5 @@ plotly==5.9.0
 streamlit==1.14.1
 streamlit_option_menu==0.3.2
 supabase==0.7.1
+matplotlib==3.8.2
+

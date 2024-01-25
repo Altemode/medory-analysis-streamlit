@@ -3,7 +3,7 @@ import streamlit as st
 from supabase import create_client, Client
 
 st.set_page_config(
-    page_title="Tefaa Metrics",
+    page_title="Medory",
     page_icon="🧊",
     layout="wide",
     initial_sidebar_state="expanded",
