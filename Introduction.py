@@ -3,6 +3,9 @@ import streamlit as st
 import gettext
 _ = gettext.gettext
 from os import system, path
+import requests
+import pandas as pd
+
 
 # Set config page
 st.set_page_config(
@@ -47,3 +50,27 @@ st.write(_('**Display Medical Data:** Ο χρήστης μπορεί να προ
 
 st.write(_('**Charts:** Ο χρήστης μπορεί να προβάλει αποτελέσματα εξετάσεων σε γραφήματα. Πρώτα επιλέγει το άτομο που τον ενδιαφέρει, έπειτα το είδος της εξέτασης και τον δείκτη  για να προβαλει σε γράφημα.'))
 
+
+
+
+st.write("H")
+
+response1 = requests.get("https://sportsmetrics.geth.gr")
+st.write("sportsmetrics",response1)
+
+response2 = requests.get("https://geth.gr")
+st.write("geth",response2)
+
+response3 = requests.get("https://paramithenios.gr")
+st.write("plottwist",response3)
+
+response3 = requests.get("https://artdigital.gr")
+st.write("art",response3)
+
+
+
+dftest1 = pd.read_csv("https://paramithenios.gr/testfolder/testOther.csv")
+st.write("parami testOther", dftest1)
+
+dftest2 = pd.read_csv("https://sportsmetrics.geth.gr/storage/TestBeta.csv")
+st.write("dftest 1", dftest2)
